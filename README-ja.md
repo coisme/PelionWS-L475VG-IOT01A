@@ -63,7 +63,7 @@ https://os.mbed.com/platforms/ST-Discovery-L475E-IOT01A/
 
 https://os.mbed.com/users/coisme/code/WS_ET-IoT-Expo-2018/
 
-<img src="img/import.png" width="800" />
+<img src="img/Import.png" width="800" />
 
 *Import into Compiler* ボタンをクリックするとオンラインコンパイラに画面が遷移します。インポートを確認するダイアログがでてくるので、*Import* ボタンをクリックしてインポートします。この際、*Update all libraries to the latest revision* は**チェックしないでください**。
 
@@ -217,7 +217,7 @@ https://portal.mbedcloud.com/
 
 ## センサを追加する
 
-[B-L475E-IOT01A Discovery](https://os.mbed.com/platforms/ST-Discovery-L475E-IOT01A/) ボードは様々なセンサを搭載しています。プログラムを変更して、いくつかのセンサの値をモニタできるようにします。そして OTA （Over-The-Air) でファームウェアを更新します。
+[B-L475E-IOT01A Discovery](https://os.mbed.com/platforms/ST-Discovery-L475E-IOT01A/) ボードは様々なセンサを搭載しています。ファームウェアプログラムを変更して、いくつかのセンサの値をモニタできるようにします。そして OTA （Over-The-Air) で IoT デバイスのファームウェアを更新します。
 
 ### ENABLE_SENSORSマクロを有効化する
 
@@ -225,7 +225,7 @@ https://portal.mbedcloud.com/
 
 <img src="img/input_compile_macro.png" width="400" />
 
-## ファームウエアをOTAでアップデートする
+## ファームウエアをOTAでアップデートする
 
 ### アップデート用ファームウェアとマニフェストを作成する
 
