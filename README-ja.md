@@ -12,7 +12,7 @@
 ### Mbed CLI をインストールする
 
 本ワークショップでは Mbed CLI を使用します。事前にお使いのパソコンで Mbed CLI が使えるようにしておいてください。
-インストール方法については[こちら](https://os.mbed.com/docs/latest/tools/installation-and-setup.html)を参照してください。Windows と macOS はインストーラがあります。
+インストール方法については [こちら](https://os.mbed.com/docs/latest/tools/installation-and-setup.html) を参照してください。Windows と macOS はインストーラがあります。
 
 ### Mbed アカウントを作成する
 
@@ -23,11 +23,11 @@ https://os.mbed.com/account/signup/
 
 ### Pelion Device Management のフリートライアルを登録する
 
-本ワークショップでは Pelion Device Management を使用します。Pelion Device Management のフリートライアルを以下のページから申請してください。申請には上で作成した Mbed アカウントでのログインが必要です。
+本ワークショップでは Pelion Device Management を使用します。 Pelion Device Management のフリートライアルを以下のページから申請してください。申請には上で作成した Mbed アカウントでのログインが必要です。
 
 https://console.mbed.com/cloud-registration
 
-必須項目を入力して *Submit* すると、Pelion Device Management Portal へと画面が遷移します。途中でログイン画面になりますので、*Log in with Mbed.com* ボタンをクリックしてください。
+必須項目を入力して *Submit* すると、 Pelion Device Management Portal へと画面が遷移します。途中でログイン画面になりますので、*Log in with Mbed.com* ボタンをクリックしてください。
 
 <img src="img/log_in_pelion_portal.png" width="400" style="border: 1 px solid black;" />
 
@@ -50,11 +50,11 @@ Pelion Device Management と連携するために必要な Pelion Device Managem
 
 https://os.mbed.com/platforms/ST-Discovery-L475E-IOT01A/
 
-画面右にある **Add to your Mbed Compiler** をクリックしてください。
+画面右にある **Add to your Mbed Compiler** をクリックしてください。
 
 <img src="img/add_to_your_mbed_compiler.png" width="800" style="border: 1 px solid black;" />
 
-クリックすると追加処理が行われ、完了すると *Platform 'DISCO-L475VG-IOT01A' is now added to your account!* と表示されます。
+クリックすると追加処理が行われ、完了すると *Platform 'DISCO-L475VG-IOT01A' is now added to your account!* と表示されます。
 
 
 ### プロジェクトをインポートする
@@ -65,7 +65,7 @@ https://os.mbed.com/users/coisme/code/WS_ET-IoT-Expo-2018/
 
 <img src="img/Import.png" width="800" style="border: 1 px solid black;" />
 
-*Import into Compiler* ボタンをクリックするとオンラインコンパイラに画面が遷移します。インポートを確認するダイアログがでてくるので、*Import* ボタンをクリックしてインポートします。この際、*Update all libraries to the latest revision* は**チェックしないでください**。
+*Import into Compiler* ボタンをクリックするとオンラインコンパイラに画面が遷移します。インポートを確認するダイアログがでてくるので、*Import* ボタンをクリックしてインポートします。この際、 *Update all libraries to the latest revision* は **チェックしないでください** 。
 
 <img src="img/import_program.png" width="400" style="border: 1 px solid black;" />
 
@@ -80,12 +80,12 @@ IoT デバイスが接続する Wi-Fi  アクセスポイントの情報を設�
             "nsapi.default-wifi-password"       : "\"Password\""
 ```
 
-`nsapi.default-wifi-security` には `WEP`、`WPA`、`WPA2`、`WPA_WPA2` が設定できます。アクセスポイントの設定に応じて適切なものを選択してください。`nsapi.default-wifi-ssid` にはアクセスポイントの SSID を、`nsapi.default-wifi-password` にはパスワードを設定してください。その際、文字列の先頭と最後にエスケープされた引用符 `\"` が必要ですのでご注意ください。
+`nsapi.default-wifi-security` には `WEP` 、 `WPA` 、 `WPA2` 、 `WPA_WPA2` が設定できます。アクセスポイントの設定に応じて適切なものを選択してください。 `nsapi.default-wifi-ssid` にはアクセスポイントの SSID を、 `nsapi.default-wifi-password` にはパスワードを設定してください。その際、文字列の先頭と最後にエスケープされた引用符 `\"` が必要ですのでご注意ください。
 
 
 ### 開発者用証明書を作成する
 
-IoT デバイス認証のための証明書情報等を含むファイルを生成します。オンラインコンパイラで画面上部にある *Pelion Device Management* メニューを展開し、*Manage Connect Certificates* をクリックします。
+IoT デバイス認証のための証明書情報等を含むファイルを生成します。オンラインコンパイラで画面上部にある *Pelion Device Management* メニューを展開し、*Manage Connect Certificates* をクリックします。
 
 <img src="img/manage_connect_certificates.png" width="600" style="border: 1 px solid black;" />
 
@@ -191,7 +191,8 @@ https://portal.mbedcloud.com/
 
 途中、ログインを求められたときは *Log in with your Mbed.com account* をクリックして、
 
-<img src="img/pelion_login.png" width="400" style="border: 1 px solid black;" />
+|<img src="img/pelion_login.png" width="400" style="border: 1 px solid black;" />|
+|:-:|
 
 次に出てくる *Log in with Mbed.com* をクリックしてください。
 
