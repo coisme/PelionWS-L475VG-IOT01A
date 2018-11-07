@@ -96,7 +96,7 @@ IoT デバイス認証のための証明書情報等を含むファイルを生�
 
 <img src="img/create_certificate.png" width="400" />
 
-証明書を区別するために証明書につける名前を入力して、*OK* ボタンをクリックしてください。
+証明書を区別するために証明書につける名前を入力して、 *OK* ボタンをクリックしてください。
 
 <img src="img/input_certificate_name.png" width="400" />
 
@@ -120,7 +120,7 @@ IoT デバイス認証のための証明書情報等を含むファイルを生�
 
 `update_default_resources.c` と `update_certificate.pem` を上書きする旨の確認ダイアログが出てきますので、こちらも *Create* ボタンをクリックしてください。ファイルが生成され上書きされます。
 
-続いて、のちほどアップデート用ファームウェアを署名するための秘密鍵をダウンロードするダイアログが出てきますので *Download Private Key* ボタンをクリックして秘密鍵ファイルをダウンロードします。**この秘密鍵は他の人と共有したりせず安全な場所に保管してください**。あとで使用します。
+続いて、アップデート用ファームウェアを署名するための秘密鍵をダウンロードするダイアログが出てきますので *Download Private Key* ボタンをクリックして秘密鍵ファイルをダウンロードします。 **この秘密鍵は他の人と共有したりせず安全な場所に保管してください** 。あとで使用します。
 
 <img src="img/download_private_key.png" width="400" />
 
@@ -149,17 +149,17 @@ IoT デバイス認証のための証明書情報等を含むファイルを生�
 
 ### シリアルモニタを接続する
 
-ターミナル（Windowsではコマンドプロンプト）を起動し、次のコマンドを入力します（最初の `$` は入力の必要はありません）。
+ターミナル（ Windows ではコマンドプロンプト）を起動し、次のコマンドを入力します（最初の `$` は入力の必要はありません）。
 
 ```
 $ mbed sterm -b 115200
 ```
 
-IoTデバイスが自動的に認識されて、シリアル通信の内容が表示されます。
+IoT デバイスが自動的に認識されて、シリアル通信の内容が表示されます。
 
 ### IoT デバイスを起動する
 
-USBケーブルをつないだ状態でボード上の RESET ボタン（黒いボタン）を押すと、IoT デバイスがリセットされファームウェアが起動します。以下は起動時のシリアル通信ログの一例です。環境によって一部の表示が異なります。
+USB ケーブルをつないだ状態でボード上の RESET ボタン（黒いボタン）を押すと、 IoT デバイスがリセットされファームウェアが起動します。以下は起動時のシリアル通信ログの一例です。環境によって一部の表示が異なります。
 
 ```
 $ mbed sterm -b 115200
@@ -211,48 +211,78 @@ https://portal.mbedcloud.com/
 
 <img src="img/device_detail.png" width="800" />
 
-IoT デバイスに登録されているリソース一覧が表示されます。この中から `button_count` (`/3200/0/5501`) というリソースを探し、クリックしてください。このリソースは IoT デバイス上の `USER` ボタン（青いボタン）に対応します。
+IoT デバイスに登録されているリソース一覧が表示されます。この中から `button_count` ( `/3200/0/5501` ) というリソースを探し、クリックしてください。このリソースは IoT デバイス上の `USER` ボタン（青いボタン）に対応します。
 
 <img src="img/resource_list.png" width="800" />
 
-クリックすると、モニタ画面が表示され、リソースの状態をモニタすることができます。`USER` ボタンを押すたびに、`Value` の値が増え、グラフが更新される様子が見られます。
+クリックすると、モニタ画面が表示され、リソースの状態をモニタすることができます。 `USER` ボタンを押すたびに、 `Value` の値が増え、グラフが更新される様子が見られます。
 
 <img src="img/monitor_resource.png" width="800" />
 
 
 ## センサを追加する
 
-[B-L475E-IOT01A Discovery](https://os.mbed.com/platforms/ST-Discovery-L475E-IOT01A/) ボードは様々なセンサを搭載しています。ファームウェアプログラムを変更して、いくつかのセンサの値をモニタできるようにします。そして OTA （Over-The-Air) で IoT デバイスのファームウェアを更新します。
+[B-L475E-IOT01A Discovery](https://os.mbed.com/platforms/ST-Discovery-L475E-IOT01A/) ボードは様々なセンサを搭載しています。ファームウェアプログラムを変更して、いくつかのセンサの値をモニタできるようにします。そして OTA （Over-The-Air) で IoT デバイスのファームウェアを更新します。
 
 ### ENABLE_SENSORSマクロを有効化する
 
+本ワークショップでは新たにコードを書く時間を節約するため、プリプロセッサによるコンパイルスイッチでセンサのコードを有効化できるようにしてあります。センサを有効化するにはマクロ `ENABLE_SENSORS` を定義します。マクロを定義するには、画面上部にある *Compile* を展開し、 *Compile Macros* をクリックします。
+
 <img src="img/compile_macros.png" width="600" />
+
+するとコンパイルマクロを定義するダイアログが表示されます。テキストエリアに `ENABLE_SENSORS` と入力してください。
 
 <img src="img/input_compile_macro.png" width="400" />
 
+これで `main.cpp` 中の、 `#ifdef ENABLE_SENSORS` と `#endif /* ENABLE_SENSORS */` で囲まれたセンサ関連のコードが有効化されます。
+
+
 ## ファームウエアをOTAでアップデートする
+
+センサのコードを追加したファームウェアを OTA (Over-The-Air) で更新してみましょう。
+
+ワークショップでは手元に IoT デバイスがあるので、 USB 経由で更新するのとあまり手間が変わらないように思えるかもしれません。しかし、 IoT デバイスは大量かつ広範囲に設置されることが想定されます。それを人がひとつひとつ更新してまわるのは現実的ではありません。ネットワーク経由でファームウェアを更新できることが必須であると言えます。
 
 ### アップデート用ファームウェアとマニフェストを作成する
 
+OTA でファームウェアアップデートを実施するためには、更新用ファームウェアイメージとマニフェストを作成する必要があります。画面上部にある *Pelion Device Management* から *Publish Firmware Update* をクリックします。
+
 <img src="img/publish_firmware_update.png" width="600" />
+
+今回のファームウェアアップデートの名称 (Name) と説明 (Description) を入力します。説明は空欄でも構いません。入力したら *Publish* をクリックします。
 
 <img src="img/input_manifest_name.png" width="400" />
 
+次に、署名をするための秘密鍵を指定します。 *Choose File* をクリックし、先の手順でダウンロードした秘密鍵のファイル `private.key` を指定してください。指定したら *OK* をクリックします。
+
 <img src="img/choose_private_key.png" width="400" />
+
+ファームウェアイメージのアップロード、マニフェストの作成、署名、アップロードが行われます。
 
 <img src="img/done_create_manifest.png" width="400" />
 
+すべて完了したら、 *Open Device Management Portal* をクリックし、 Pelion Device Management Portal を開きます。
 
 ### アップデートキャンペーンを準備する
+
+ファームウェアイメージとマニフェストがアップロードされ準備できましたので、実際にファームウェアアップデートを行うための準備をします。Pelion Device Management が開くと、ファームウェアアップデートを実施するための *キャンペーン* のドラフトを作成するウィザードが現れます。
+
+最初のステップではキャンペーンの名称と説明を入力します。名称は自動で入力されているので、そのままでも構いませんし、変更しても構いません。説明は空欄でも構いません。入力したら *Next* ボタンをクリックします。
 
 |<img src="img/update_campaign_wizard_step1.png" width="800" />|
 |:-:|
 
+ステップ 2 ではマニフェストを選択しますが、既に先ほどアップロードしたマニフェストが選択されているはずですので、そのまま *Next* ボタンをクリックしてください。
+
 |<img src="img/update_campaign_wizard_step2.png" width="800" />|
 |:-:|
 
+ステップ 3 ではキャンペーンを適用する IoT デバイスを選択します。 *Select device* を選択すると IoT デバイスのリストが表示されます。接続している IoT デバイスを選択して、 *Next* をクリックします。
+
 |<img src="img/update_campaign_wizard_step3.png" width="800" />|
 |:-:|
+
+最後に、ステップ 4 ではキャンペーンの詳細を確認します。問題がなければ *Finish* をクリックします。アップデートキャンペーンのドラフトが作成されます。
 
 |<img src="img/update_campaign_wizard_step4.png" width="800" />|
 |:-:|
@@ -260,11 +290,17 @@ https://portal.mbedcloud.com/
 
 ### アップデートキャンペーンを実施する
 
+作成したアップデートキャンペーンが表示されます。 *Start* をクリックしてキャンペーンを開始します。確認画面が出たら、確認の上、進めてください。
+
 |<img src="img/start_update_campaign.png" width="800" />|
 |:-:|
 
+アップデートが始まるとステータスが `Active` になります。
+
 |<img src="img/update_campaign_pending.png" width="800" />|
 |:-:|
+
+IoT デバイスのシリアルモニタにはファームウェアイメージの進捗が表示されます。
 
 ```
 Firmware download requested
@@ -272,7 +308,17 @@ Authorization granted
 Downloading: [+++|                                              ] 6 %
 ```
 
+IoT デバイスへのファームウェアダウンロードが正常に終了すると、ステータスが *Stopped: Threshold 100.00% reached.* と表示されます。
+
+|<img src="img/update_campaign_done.png" width="800" />|
+|:-:|
+
+
+IoT  デバイス側では、ファームウェアイメージのダウンロードが完了すると、内容が検証され、 IoT デバイスが自動的に再起動します。
+
 ### ファームウェアがアップデートされたことを確認する
+
+IoT デバイスが再起動すると、ダウンロードした新しいファームウェアイメージが起動します。シリアルモニタ上ではセンサの値が表示されるようになっているはずです。
 
 ```
 Firmware download requested
@@ -313,11 +359,12 @@ Connected to Pelion Device Management. Endpoint Name: 0166e9235ab800000000000100
 VL53L0X [mm]:               304
 ```
 
-|<img src="img/update_campaign_done.png" width="800" />|
+また、 Pelion Device Management Portal のデバイスリソース一覧にはセンサリソースが追加されています。例えば距離センサ `distance` です。クリックすると IoT デバイス上の距離センサの値が表示されます。ボードの上に手をかざして上下させると、値が変化する様子がわかります。
+
+|<img src="img/distance_sensor_resource.png" width="600" />|
 |:-:|
 
-|<img src="img/distance_sensor_resource.png" width="800" />|
-|:-:|
+<img src="img/distance_sensor.gif" width="450" height="450" />
 
 ## WEBアプリケーションを作る
 
