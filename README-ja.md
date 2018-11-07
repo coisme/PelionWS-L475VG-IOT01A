@@ -1,8 +1,9 @@
 本ワークショップでは [B-L475E-IOT01A Discovery](https://os.mbed.com/platforms/ST-Discovery-L475E-IOT01A/) ボードを用いて IoT デバイスを作成し、次のことを体験できます。
 
+1. Mbed オンラインコンパイラを利用して IoT デバイスのファームウェアを作成する
 1. Pelion Device Management で IoT デバイスを管理する
 1. IoT デバイスのファームウェアを OTA (Over-The-Air) で更新する
-1. Pelion Device Management と連携する WEB アプリを作成する
+1. (Pelion Device Management と連携する WEB アプリを作成する)
 
 
 # 事前準備
