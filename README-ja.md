@@ -8,10 +8,10 @@
 
 # 事前準備
 
-## Mbed CLI をインストールする
+## ターミナルソフトウェアのインストール
 
-本ワークショップでは Mbed CLI を使用します。事前にお使いのパソコンで Mbed CLI が使えるようにしておいてください。
-インストール方法については [こちら](https://os.mbed.com/docs/latest/tools/installation-and-setup.html) を参照してください。Windows と macOS はインストーラがあります。
+本ワークショップではターミナルソフトを使用して IoT デバイスからのメッセージをモニタします。[Teraterm](https://ja.osdn.net/projects/ttssh2/) (Windows)、 [Coolterm](http://freeware.the-meiers.org) (Windows/macOS/Linux) などのターミナルソフトをインストールしてください。
+
 
 ## Mbed アカウントを作成する
 
@@ -22,11 +22,11 @@ https://os.mbed.com/account/signup/
 
 ## Pelion Device Management のフリートライアルを登録する
 
-本ワークショップでは Pelion Device Management を使用します。 Pelion Device Management のフリートライアルを以下のページから申請してください。申請には上で作成した Mbed アカウントでのログインが必要です。
+本ワークショップでは Pelion Device Management を使用します。 Pelion Device Management のフリートライアルを以下のページから申請してください。申請には上で作成した Mbed アカウントでのログインが必要です。
 
 https://console.mbed.com/cloud-registration
 
-必須項目を入力して *Submit* すると、 Pelion Device Management Portal へと画面が遷移します。途中でログイン画面になりますので、*Log in with Mbed.com* ボタンをクリックしてください。
+必須項目を入力して *Submit* すると、 Pelion Device Management Portal へと画面が遷移します。途中でログイン画面になりますので、*Log in with Mbed.com* ボタンをクリックしてください。
 
 |<img src="img/log_in_pelion_portal.png" width="400" />|
 |:-:|
@@ -47,7 +47,17 @@ Pelion Device Management と連携するために必要な Pelion Device Managem
 
 ## プラットフォームを追加する
 
-開発ボード（プラットフォーム）として今回使用する B-L475E-IOT01A Discovery kit for IoT node をアカウントに追加します。次のページを開いてください。
+開発ボード（プラットフォーム）として今回使用する B-L475E-IOT01A Discovery kit for IoT node をアカウントに追加します。次のいずれかの方法で登録してください。
+
+### 手元のボードを使って登録
+
+Mbed.com にログインした状態で以下の作業を行います。
+
+パソコンと手元のボードを USB ケーブルで接続してください。ボードが USB ドライブとして認識されます。 USB ドライブの中にある `MBED.HTM` をブラウザで開いてください。自動的にボードがアカウントに追加されます。
+
+### サイトにアクセスして登録
+
+次のページを開いてください。
 
 https://os.mbed.com/platforms/ST-Discovery-L475E-IOT01A/
 
@@ -67,14 +77,14 @@ https://os.mbed.com/users/coisme/code/WS_ET-IoT-Expo-2018/
 
 <img src="img/Import.png" width="800" />
 
-*Import into Compiler* ボタンをクリックするとオンラインコンパイラに画面が遷移します。インポートを確認するダイアログがでてくるので、*Import* ボタンをクリックしてインポートします。この際、 *Update all libraries to the latest revision* は **チェックしないでください** 。
+*Import into Compiler* ボタンをクリックするとオンラインコンパイラに画面が遷移します。インポートを確認するダイアログがでてくるので、*Import* ボタンをクリックしてインポートします。この際、 *Update all libraries to the latest revision* は **チェックしないでください** 。
 
 <img src="img/import_program.png" width="400" />
 
 
 ## Wi-Fi アクセスポイントの情報を設定する
 
-IoT デバイスが接続する Wi-Fi  アクセスポイントの情報を設定します。プロジェクトのルートにあるファイル `mbed_app.json` を開き、`target_overrides` の中にある次の項目を編集してください。
+IoT デバイスが接続する Wi-Fi  アクセスポイントの情報を設定します。プロジェクトのルートにあるファイル `mbed_app.json` を開き、`target_overrides` の中にある次の項目を編集してください。
 
 ```
             "nsapi.default-wifi-security"       : "WPA_WPA2",
@@ -82,7 +92,7 @@ IoT デバイスが接続する Wi-Fi  アクセスポイントの情報を設�
             "nsapi.default-wifi-password"       : "\"Password\""
 ```
 
-`nsapi.default-wifi-security` には `WEP` 、 `WPA` 、 `WPA2` 、 `WPA_WPA2` が設定できます。アクセスポイントの設定に応じて適切なものを選択してください。 `nsapi.default-wifi-ssid` にはアクセスポイントの SSID を、 `nsapi.default-wifi-password` にはパスワードを設定してください。その際、文字列の先頭と最後にエスケープされた引用符 `\"` が必要ですのでご注意ください。
+`nsapi.default-wifi-security` には `WEP` 、 `WPA` 、 `WPA2` 、 `WPA_WPA2` が設定できます。アクセスポイントの設定に応じて適切なものを選択してください。 `nsapi.default-wifi-ssid` にはアクセスポイントの SSID を、 `nsapi.default-wifi-password` にはパスワードを設定してください。その際、文字列の先頭と最後にエスケープされた引用符 `\"` が必要ですのでご注意ください。
 
 
 ## 開発者用証明書を作成する
@@ -91,11 +101,11 @@ IoT デバイス認証のための証明書情報等を含むファイルを生�
 
 <img src="img/manage_connect_certificates.png" width="600" />
 
-証明書を選択するダイアログが出てきますが、初回は利用できる証明書がまだありません。右上にある *Create* ボタンをクリックして証明書を作成します。
+証明書を選択するダイアログが出てきますが、初回は利用できる証明書がまだありません。右上にある *Create* ボタンをクリックして証明書を作成します。
 
 <img src="img/create_certificate.png" width="400" />
 
-証明書を区別するために証明書につける名前を入力して、 *OK* ボタンをクリックしてください。
+証明書を区別するために証明書につける名前を入力して、 *OK* ボタンをクリックしてください。
 
 <img src="img/input_certificate_name.png" width="400" />
 
@@ -117,9 +127,9 @@ IoT デバイス認証のための証明書情報等を含むファイルを生�
 
 <img src="img/update_certificate_confirmation.png" />
 
-`update_default_resources.c` と `update_certificate.pem` を上書きする旨の確認ダイアログが出てきますので、こちらも *Create* ボタンをクリックしてください。ファイルが生成され上書きされます。
+`update_default_resources.c` と `update_certificate.pem` を上書きする旨の確認ダイアログが出てきますので、こちらも *Create* ボタンをクリックしてください。ファイルが生成され上書きされます。
 
-続いて、アップデート用ファームウェアを署名するための秘密鍵をダウンロードするダイアログが出てきますので *Download Private Key* ボタンをクリックして秘密鍵ファイルをダウンロードします。 **この秘密鍵は他の人と共有したりせず安全な場所に保管してください** 。あとで使用します。
+続いて、アップデート用ファームウェアを署名するための秘密鍵をダウンロードするダイアログが出てきますので *Download Private Key* ボタンをクリックして秘密鍵ファイルをダウンロードします。 **この秘密鍵は他の人と共有したりせず安全な場所に保管してください** 。あとで使用します。
 
 <img src="img/download_private_key.png" width="400" />
 
@@ -143,28 +153,27 @@ IoT デバイス認証のための証明書情報等を含むファイルを生�
 
 <img src="img/write_firmware.png" width="600" />
 
-ドライブの中には `DETAILS.TXT` と `MBED.HTM` というファイルがあるはずです。同じ場所に先ほどダウンロードしたファームウェアをコピーしてください。そうすると、ボード上のマイクロコントローラにファームウェアが書き込まれます。書き込み中はボード上の LD6 という LED が点滅します。
+ドライブの中には `DETAILS.TXT` と `MBED.HTM` というファイルがあるはずです。同じ場所に先ほどダウンロードしたファームウェアをコピーしてください。そうすると、ボード上のマイクロコントローラにファームウェアが書き込まれます。書き込み中はボード上の LD6 という LED が点滅します。
 
 
 ## シリアルモニタを接続する
 
-ターミナル（ Windows ではコマンドプロンプト）を起動し、次のコマンドを入力します（最初の `$` は入力の必要はありません）。
+ターミナルソフトを起動し、ボードと接続します。シリアル通信のパラメータは、以下の通りです。
 
-```
-$ mbed sterm -b 115200
-```
+|項目|値|
+--|--
+|ボーレート|115200|
+|データビット|8ビット|
+|パリティ|なし|
+|ストップビット|1|
+|フローコントロール|なし|
 
-IoT デバイスが自動的に認識されて、シリアル通信の内容が表示されます。
 
 ## IoT デバイスを起動する
 
-USB ケーブルをつないだ状態でボード上の RESET ボタン（黒いボタン）を押すと、 IoT デバイスがリセットされファームウェアが起動します。以下は起動時のシリアル通信ログの一例です。環境によって一部の表示が異なります。
+USB ケーブルをつないだ状態でボード上の RESET ボタン（黒いボタン）を押すと、 IoT デバイスがリセットされファームウェアが起動します。以下は起動時のシリアル通信ログの一例です。環境によって一部の表示が異なります。
 
 ```
-$ mbed sterm -b 115200
-[mbed] Detecting connected targets/boards to your system...
-[mbed] Opening serial terminal to "DISCO_L475VG_IOT01A"
---- Terminal on /dev/tty.usbmodem145103 - 115200,8,N,1 ---
 [BOOT] Mbed Bootloader
 [BOOT] ARM: 00000000000000000000
 [BOOT] OEM: 00000000000000000000
@@ -196,13 +205,13 @@ https://portal.mbedcloud.com/
 |<img src="img/pelion_login.png" width="400" />|
 |:-:|
 
-次に出てくる *Log in with Mbed.com* をクリックしてください。
+次に出てくる *Log in with Mbed.com* をクリックしてください。
 
 |<img src="img/log_in_with_mbed.png" width="400" />|
 |:-:|
 
 
-ログインが完了すると Usage Dashboard が表示されます。画面左のメニューの `Device Directory` をクリックするとデバイス一覧が表示されます。今回は先ほど接続した一台が表示されるはずです。
+ログインが完了すると Usage Dashboard が表示されます。画面左のメニューの `Device Directory` をクリックするとデバイス一覧が表示されます。今回は先ほど接続した一台が表示されるはずです。
 
 <img src="img/device_directory.png" width="800" />
 
@@ -210,7 +219,7 @@ https://portal.mbedcloud.com/
 
 <img src="img/device_detail.png" width="800" />
 
-IoT デバイスに登録されているリソース一覧が表示されます。この中から `button_count` ( `/3200/0/5501` ) というリソースを探し、クリックしてください。このリソースは IoT デバイス上の `USER` ボタン（青いボタン）に対応します。
+IoT デバイスに登録されているリソース一覧が表示されます。この中から `button_count` ( `/3200/0/5501` ) というリソースを探し、クリックしてください。このリソースは IoT デバイス上の `USER` ボタン（青いボタン）に対応します。
 
 <img src="img/resource_list.png" width="800" />
 
@@ -221,7 +230,7 @@ https://portal.mbedcloud.com/
 
 # センサを追加する
 
-[B-L475E-IOT01A Discovery](https://os.mbed.com/platforms/ST-Discovery-L475E-IOT01A/) ボードは様々なセンサを搭載しています。ファームウェアプログラムを変更して、いくつかのセンサの値をモニタできるようにします。そして OTA （Over-The-Air) で IoT デバイスのファームウェアを更新します。
+[B-L475E-IOT01A Discovery](https://os.mbed.com/platforms/ST-Discovery-L475E-IOT01A/) ボードは様々なセンサを搭載しています。ファームウェアプログラムを変更して、いくつかのセンサの値をモニタできるようにします。そして OTA （Over-The-Air) で IoT デバイスのファームウェアを更新します。
 
 ## ENABLE_SENSORSマクロを有効化する
 
@@ -238,9 +247,9 @@ https://portal.mbedcloud.com/
 
 # ファームウエアをOTAでアップデートする
 
-センサのコードを追加したファームウェアを OTA (Over-The-Air) で更新してみましょう。
+センサのコードを追加したファームウェアを OTA (Over-The-Air) で更新してみましょう。
 
-ワークショップでは手元に IoT デバイスがあるので、 USB 経由で更新するのとあまり手間が変わらないように思えるかもしれません。しかし、 IoT デバイスは大量かつ広範囲に設置されることが想定されます。それを人がひとつひとつ更新してまわるのは現実的ではありません。ネットワーク経由でファームウェアを更新できることが必須であると言えます。
+ワークショップでは手元に IoT デバイスがあるので、 USB 経由で更新するのとあまり手間が変わらないように思えるかもしれません。しかし、 IoT デバイスは大量かつ広範囲に設置されることが想定されます。それを人がひとつひとつ更新してまわるのは現実的ではありません。ネットワーク経由でファームウェアを更新できることが必須であると言えます。
 
 ## アップデート用ファームウェアとマニフェストを作成する
 
@@ -248,15 +257,15 @@ OTA でファームウェアアップデートを実施するためには、更�
 
 <img src="img/publish_firmware_update.png" width="600" />
 
-今回のファームウェアアップデートの名称 (Name) と説明 (Description) を入力します。説明は空欄でも構いません。入力したら *Publish* をクリックします。
+今回のファームウェアアップデートの名称 (Name) と説明 (Description) を入力します。説明は空欄でも構いません。入力したら *Publish* をクリックします。
 
 <img src="img/input_manifest_name.png" width="400" />
 
-次に、署名をするための秘密鍵を指定します。 *Choose File* をクリックし、先の手順でダウンロードした秘密鍵のファイル `private.key` を指定してください。指定したら *OK* をクリックします。
+次に、署名をするための秘密鍵を指定します。 *Choose File* をクリックし、先の手順でダウンロードした秘密鍵のファイル `private.key` を指定してください。指定したら *OK* をクリックします。
 
 <img src="img/choose_private_key.png" width="400" />
 
-ファームウェアイメージのアップロード、マニフェストの作成、署名、アップロードが行われます。
+ファームウェアイメージのアップロード、マニフェストの作成、署名、アップロードが行われます。
 
 <img src="img/done_create_manifest.png" width="400" />
 
@@ -264,7 +273,7 @@ OTA でファームウェアアップデートを実施するためには、更�
 
 ## アップデートキャンペーンを準備する
 
-ファームウェアイメージとマニフェストがアップロードされ準備できましたので、実際にファームウェアアップデートを行うための準備をします。Pelion Device Management が開くと、ファームウェアアップデートを実施するための *キャンペーン* のドラフトを作成するウィザードが現れます。
+ファームウェアイメージとマニフェストがアップロードされ準備できましたので、実際にファームウェアアップデートを行うための準備をします。Pelion Device Management が開くと、ファームウェアアップデートを実施するための *キャンペーン* のドラフトを作成するウィザードが現れます。
 
 最初のステップではキャンペーンの名称と説明を入力します。名称は自動で入力されているので、そのままでも構いませんし、変更しても構いません。説明は空欄でも構いません。入力したら *Next* ボタンをクリックします。
 
@@ -281,7 +290,7 @@ OTA でファームウェアアップデートを実施するためには、更�
 |<img src="img/update_campaign_wizard_step3.png" width="800" />|
 |:-:|
 
-最後に、ステップ 4 ではキャンペーンの詳細を確認します。問題がなければ *Finish* をクリックします。アップデートキャンペーンのドラフトが作成されます。
+最後に、ステップ 4 ではキャンペーンの詳細を確認します。問題がなければ *Finish* をクリックします。アップデートキャンペーンのドラフトが作成されます。
 
 |<img src="img/update_campaign_wizard_step4.png" width="800" />|
 |:-:|
@@ -299,7 +308,7 @@ OTA でファームウェアアップデートを実施するためには、更�
 |<img src="img/update_campaign_pending.png" width="800" />|
 |:-:|
 
-IoT デバイスのシリアルモニタにはファームウェアイメージのダウンロードの進捗が表示されます。
+IoT デバイスのシリアルモニタにはファームウェアイメージのダウンロードの進捗が表示されます。
 
 ```
 Firmware download requested
@@ -313,11 +322,11 @@ IoT デバイスへのファームウェアダウンロードが正常に終了�
 |:-:|
 
 
-IoT  デバイス側では、ファームウェアイメージのダウンロードが完了すると、内容が検証され、 IoT デバイスが自動的に再起動します。
+IoT  デバイス側では、ファームウェアイメージのダウンロードが完了すると、内容が検証され、 IoT デバイスが自動的に再起動します。
 
 ## ファームウェアがアップデートされたことを確認する
 
-IoT デバイスが再起動すると、ダウンロードした新しいファームウェアイメージが起動します。シリアルモニタ上ではセンサの値が表示されるようになっているはずです。
+IoT デバイスが再起動すると、ダウンロードした新しいファームウェアイメージが起動します。シリアルモニタ上ではセンサの値が表示されるようになっているはずです。
 
 ```
 Firmware download requested
@@ -358,7 +367,7 @@ Connected to Pelion Device Management. Endpoint Name: 0166e9235ab800000000000100
 VL53L0X [mm]:               304
 ```
 
-また、 Pelion Device Management Portal のデバイスリソース一覧にはセンサリソースが追加されています。例えば距離センサ `distance` です。クリックすると IoT デバイス上の距離センサの値が表示されます。ボードの上に手をかざして上下させると、値が変化する様子がわかります。
+また、 Pelion Device Management Portal のデバイスリソース一覧にはセンサリソースが追加されています。例えば距離センサ `distance` です。クリックすると IoT デバイス上の距離センサの値が表示されます。ボードの上に手をかざして上下させると、値が変化する様子がわかります。
 
 |<img src="img/distance_sensor_resource.png" width="600" />|
 |:-:|
