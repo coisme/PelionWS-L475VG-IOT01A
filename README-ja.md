@@ -173,7 +173,7 @@ IoT デバイス認証のための証明書情報等を含むファイルを生�
 
 ## IoT デバイスを起動する
 
-ファームウェアの書き込みが完了すると、 IoT デバイスがリセットされ書き込んだ　ファームウェアが起動します。以下は起動時のシリアル通信ログの一例です。環境によって一部の表示が異なります。
+ファームウェアの書き込みが完了すると、 IoT デバイスがリセットされて書き込んだファームウェアが起動します。以下は起動時のシリアル通信ログの一例です。環境によって一部の表示が異なります。
 
 ```
 [BOOT] Mbed Bootloader
@@ -199,7 +199,7 @@ Connected to Pelion Device Management. Endpoint Name: 0166e9235ab800000000000100
 もしファームウェア書き込み後に何も表示されない場合は、ボード上の `RESET` ボタン（黒いボタン）を押してください。 IoT デバイスがリセットされます。
 
 
-### Pelion Device Management Portal で確認する
+## Pelion Device Management Portal で確認する
 
 Pelion Device Management Portal 上で、デバイスツリーにデバイスが登録されていることを確認してみましょう。次のページを開いてください。
 
@@ -256,7 +256,7 @@ IoT デバイスに登録されているリソース一覧が表示されます�
 
 ワークショップでは手元に IoT デバイスがあるので、 USB 経由で更新するのとあまり手間が変わらないように思えるかもしれません。しかし、 IoT デバイスは大量かつ広範囲に設置されることが想定されます。それを人がひとつひとつ更新してまわるのは現実的ではありません。ネットワーク経由でファームウェアを更新できることが必須であると言えます。
 
-ここではオンラインコンパイラを使用しますが、Mbed CLI でも同じことができます。Mbed CLI を使用する場合は [Mbed CLI を用いてファームウェアを OTA でアップデートする](#Mbed-CLI-を用いてファームウェアを-OTA-でアップデートする) をご覧ください。
+ここではオンラインコンパイラを使用しますが、Mbed CLI でも同じことができます。Mbed CLI を使用する場合は [Mbed CLI を用いてファームウェアを OTA でアップデートする](#付録A.-Mbed-CLI-を用いてファームウェアを-OTA-でアップデートする) をご覧ください。
 
 ## アップデート用ファームウェアとマニフェストを作成する
 
@@ -387,6 +387,121 @@ VL53L0X [mm]:               304
 
 ## ...
 
-# Mbed CLI を用いてファームウェアを OTA でアップデートする
+# 付録A. Mbed CLI を用いてファームウェアを OTA でアップデートする
 
-TEST
+OTA でのファームウェアアップデートを Mbed CLI を使って行う方法を解説します。 Mbed CLI はインストール済みとします（最新であることを確認してください）。 Mbed CLI のインストール方法など Mbed CLI について詳しく知りたい方は [mbed オフラインの開発環境](https://os.mbed.com/users/MACRUM/notebook/mbed-offline-development/) のページを参照してください。
+
+
+## プロジェクトのインポート
+
+コマンドラインから以下のコマンドを実行してください。（最初の `$` は入力する必要はありません。以下のコマンド例で同様です。）
+
+```
+$ mbed import http://os.mbed.com/users/coisme/code/WS_ET-IoT-Expo-2018/
+```
+
+プロジェクトが `WS_ET-IoT-Expo-2018` というディレクトリ名でインポートされます。プロジェクトのルートディレクトリに移動します。
+
+```
+$ cd WS_ET-IoT-Expo-2018
+```
+
+## API キーの入手
+
+Pelion Device Management Portal で API キーを入手します。入手方法については [Pelion Device Management を使う（導入編）](https://os.mbed.com/users/MACRUM/notebook/using-pelion-device-management/) の最初に記載されています。
+
+## プロジェクトの設定
+
+Pelion Device Management に接続するための設定と、デバイスおよびビルドに使用するツールチェインの設定をします。次のコマンドを実行してください。 `<API_KEY>` の部分には先ほど入手した API キーが入ります。
+
+```
+$ mbed config -G CLOUD_SDK_API_KEY <API_KEY>
+$ mbed target DISCO_L475VG_IOT01A
+$ mbed toolchain GCC_ARM
+```
+つづいて、　IoT デバイスを Pelion Device Management に接続するのに必要なファイルなどを生成します。次のコマンドを入力してくだい。
+
+```
+$ mbed dm init -d "example.com" --model-name "PELION_DEMO" -q
+```
+
+## プロジェクトをビルドする
+
+プロジェクトをビルドして IoT デバイスのファームウェアを作成します。次のコマンドを実行してください。
+
+```
+$ mbed compile
+```
+
+ビルドに成功すると、次のようなメッセージが表示されます。
+
+```
+
+| Module                                                |          .text |      .data |        .bss |
+|-------------------------------------------------------|----------------|------------|-------------|
+| VL53L0X/VL53L0X.o                                     |     26(-12402) |    0(-697) |       0(+0) |
+| [fill]                                                |        766(+2) |     13(+1) |     108(+4) |
+| [lib]/c.a                                             |      56430(+0) |   2548(+0) |     127(+0) |
+| [lib]/gcc.a                                           |       7460(+0) |      0(+0) |       0(+0) |
+| [lib]/misc                                            |        252(+0) |     16(+0) |      28(+0) |
+| [lib]/nosys.a                                         |         32(+0) |      0(+0) |       0(+0) |
+| [lib]/stdc++.a                                        |       8478(+0) |     44(+0) |     204(+0) |
+| main.o                                                |     2313(-830) |      4(+0) |   232(-724) |
+| mbed-os/components                                    |      5694(+70) |      0(+0) |       0(+0) |
+| mbed-os/drivers                                       |     3594(-452) |      4(+0) |    184(-44) |
+| mbed-os/events                                        |       1855(+0) |      0(+0) |    3144(+0) |
+| mbed-os/features                                      |    120419(+22) |    191(+0) |    7842(+0) |
+| mbed-os/hal                                           |       2061(+0) |      4(+0) |      68(+0) |
+| mbed-os/platform                                      |       5351(+0) |    272(+0) |     646(+0) |
+| mbed-os/rtos                                          |      13512(+0) |    168(+0) |    6969(+0) |
+| mbed-os/targets                                       |   19806(-5065) |      8(+0) |   1457(-20) |
+| mbed_cloud_dev_credentials.o                          |       1525(+0) |      0(+0) |       0(+0) |
+| simple-mbed-cloud-client/mbed-cloud-client            |     123464(+0) |    416(+0) |    5865(+0) |
+| simple-mbed-cloud-client/mbed_cloud_client_resource.o |       1298(+0) |      0(+0) |       0(+0) |
+| simple-mbed-cloud-client/resource.o                   |        699(+0) |      0(+0) |       0(+0) |
+| simple-mbed-cloud-client/simple-mbed-cloud-client.o   |       3364(+0) |      0(+0) |       8(+0) |
+| simple-mbed-cloud-client/update_ui_example.o          |        456(+0) |      0(+0) |       6(+0) |
+| update_default_resources.o                            |        460(+0) |      0(+0) |       0(+0) |
+| wifi-ism43362/ISM43362                                |       7734(+0) |      0(+0) |       0(+0) |
+| wifi-ism43362/ISM43362Interface.o                     |       4189(+0) |      0(+0) |     964(+0) |
+| Subtotals                                             | 391238(-18655) | 3688(-696) | 27852(-784) |
+Total Static RAM memory (data + bss): 31540(-1480) bytes
+Total Flash memory (text + data): 394926(-19351) bytes
+
+Update Image: ./BUILD/DISCO_L475VG_IOT01A/GCC_ARM/WS_ET-IoT-Expo-2018_update.bin
+Image: ./BUILD/DISCO_L475VG_IOT01A/GCC_ARM/WS_ET-IoT-Expo-2018.bin
+```
+
+## ボードとパソコンを接続する 〜 Pelion Device Management Portal で確認する
+
+オンラインコンパイラのところにある解説と同じ手順ですので、以下の項目を実施してください。ただし、ファームウェアを書き込む手順にはプロジェクトディレクトリにある `./BUILD/DISCO_L475VG_IOT01A/GCC_ARM/WS_ET-IoT-Expo-2018.bin` ファイルを使用してください。
+
+1. [ボードとパソコンを接続する](#ボードとパソコンを接続する)
+1. [シリアルモニタを接続する](#シリアルモニタを接続する)
+1. [ファームウェアを書き込む](#ファームウェアを書き込む)
+1. [IoT デバイスを起動する](#IoT-デバイスを起動する)
+1. [Pelion Device Management Portal で確認する](#Pelion-Device-Management-Portal-で確認する)
+
+## センサを追加する
+
+[B-L475E-IOT01A Discovery](https://os.mbed.com/platforms/ST-Discovery-L475E-IOT01A/) ボードは様々なセンサを搭載しています。ファームウェアプログラムを変更して、いくつかのセンサの値をモニタできるようにします。そして OTA （Over-The-Air) で IoT デバイスのファームウェアを更新します。
+
+### ENABLE_SENSORSマクロを有効化する
+
+本ワークショップでは新たにコードを書く時間を節約するため、プリプロセッサによるコンパイルスイッチでセンサのコードを有効化できるようにしてあります。センサを有効化するにはマクロ `ENABLE_SENSORS` を定義します。マクロを定義するには、
+
+## アップデート用ファームウェアイメージを作成する
+
+```
+$ mbed compile
+```
+
+## ファームウェアアップデートを実施する
+
+```
+$ mbed dm update device -D <device ID> -m <target>
+```
+
+## ファームウェアがアップデートされたことを確認する＊
+
+[こちら](#ファームウェアがアップデートされたことを確認する) を参照してください。
