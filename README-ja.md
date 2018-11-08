@@ -53,7 +53,8 @@ Pelion Device Management と連携するために必要な Pelion Device Managem
 
 Mbed.com にログインした状態で以下の作業を行います。
 
-パソコンと手元のボードを USB ケーブルで接続してください。ボードが USB ドライブとして認識されます。 USB ドライブの中にある `MBED.HTM` をブラウザで開いてください。自動的にボードがアカウントに追加されます。
+1. パソコンと手元のボードを USB ケーブルで接続してください。ボードが USB ドライブとして認識されます。 
+1. USB ドライブの中にある `MBED.HTM` をブラウザで開いてください。自動的にボードがアカウントに追加されます。
 
 ### サイトにアクセスして登録
 
@@ -194,7 +195,7 @@ Initialized Pelion Client. Registering...
 Connected to Pelion Device Management. Endpoint Name: 0166e9235ab80000000000010010012c
 ```
 
-最後に `Connected to Pelion Device Management. Endpoint Name: XXXXXXXXXXXXXXXXXXXXXX` が表示されれば Pelion Device Management への接続が成功しています。
+最後に `Connected to Pelion Device Management. Endpoint Name: XXXXXXXXXXXXXXXXXXXXXX` が表示されれば Pelion Device Management への接続が成功しています。 `XXXXXXXXXXXXXXXXX` （上の表示では `0166e9235ab80000000000010010012c` ）はエンドポイント名（デバイスID）です。後ほど使用しますのでメモしておいてください。
 
 もしファームウェア書き込み後に何も表示されない場合は、ボード上の `RESET` ボタン（黒いボタン）を押してください。 IoT デバイスがリセットされます。
 
@@ -292,7 +293,7 @@ OTA でファームウェアアップデートを実施するためには、更�
 |<img src="img/update_campaign_wizard_step2.png" width="800" />|
 |:-:|
 
-ステップ 3 ではキャンペーンを適用する IoT デバイスを選択します。 *Select device* を選択すると IoT デバイスのリストが表示されます。接続している IoT デバイスを選択して、 *Next* をクリックします。
+ステップ 3 ではキャンペーンを適用する IoT デバイスを選択します。 *Select device* を選択すると IoT デバイスのリストが表示されます。先の手順でメモしたデバイス ID をもつ IoT デバイスを選択して、 *Next* をクリックします。
 
 |<img src="img/update_campaign_wizard_step3.png" width="800" />|
 |:-:|
@@ -433,10 +434,9 @@ $ mbed dm init -d "example.com" --model-name "PELION_DEMO" -q
 $ mbed compile
 ```
 
-ビルドに成功すると、次のようなメッセージが表示されます。
+ビルドに成功すると、次のようなメッセージが最後に表示されます。
 
 ```
-
 | Module                                                |          .text |      .data |        .bss |
 |-------------------------------------------------------|----------------|------------|-------------|
 | VL53L0X/VL53L0X.o                                     |     26(-12402) |    0(-697) |       0(+0) |
@@ -472,9 +472,11 @@ Update Image: ./BUILD/DISCO_L475VG_IOT01A/GCC_ARM/WS_ET-IoT-Expo-2018_update.bin
 Image: ./BUILD/DISCO_L475VG_IOT01A/GCC_ARM/WS_ET-IoT-Expo-2018.bin
 ```
 
+最後に2種類のイメージファイルが生成された旨のメッセージが表示されています。上側の Update Image は後のファームウェアアップデートを行う際に利用されるイメージファイルです。下側の Image がブートローダを含む、初回に書き込むファームウェアイメージです。
+
 ## ボードとパソコンを接続する 〜 Pelion Device Management Portal で確認する
 
-オンラインコンパイラのところにある解説と同じ手順ですので、以下の項目を実施してください。ただし、ファームウェアを書き込む手順にはプロジェクトディレクトリにある `./BUILD/DISCO_L475VG_IOT01A/GCC_ARM/WS_ET-IoT-Expo-2018.bin` ファイルを使用してください。
+オンラインコンパイラのところにある解説と同じ手順ですので、以下の項目を実施してください。ただし、ファームウェアを書き込む手順ではプロジェクトディレクトリにある `./BUILD/DISCO_L475VG_IOT01A/GCC_ARM/WS_ET-IoT-Expo-2018.bin` ファイルを使用してください。
 
 1. [ボードとパソコンを接続する](#ボードとパソコンを接続する)
 1. [シリアルモニタを接続する](#シリアルモニタを接続する)
@@ -492,11 +494,15 @@ Image: ./BUILD/DISCO_L475VG_IOT01A/GCC_ARM/WS_ET-IoT-Expo-2018.bin
 
 ## アップデート用ファームウェアイメージを作成する
 
+プロジェクトを再度ビルドして、上で行った変更を含んだファームウェアイメージを作成します。
+
 ```
 $ mbed compile
 ```
 
 ## ファームウェアアップデートを実施する
+
+
 
 ```
 $ mbed dm update device -D <device ID> -m <target>
