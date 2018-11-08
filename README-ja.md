@@ -126,7 +126,7 @@ IoT デバイス認証のための証明書情報等を含むファイルを生�
 
 確認画面が出てきますので *Create* ボタンをクリックしてください。
 
-<img src="img/update_certificate_confirmation.png" />
+<img src="img/update_certificate_confirmation.png" width="400" />
 
 `update_default_resources.c` と `update_certificate.pem` を上書きする旨の確認ダイアログが出てきますので、こちらも *Create* ボタンをクリックしてください。ファイルが生成され上書きされます。
 
@@ -502,11 +502,21 @@ $ mbed compile
 
 ## ファームウェアアップデートを実施する
 
-
+ファームウェアイメージが作成できたら、次のコマンドを実行してファームウェアアップデートを実施します。ここで、 `<device ID>` は先の手順でメモしたデバイス ID に置き換えます。
 
 ```
-$ mbed dm update device -D <device ID> -m <target>
+$ mbed dm update device -D <device ID> -m DISCO_L475VG_IOT01A
 ```
+
+IoT デバイスのシリアルモニタにはファームウェアイメージのダウンロードの進捗が表示されます。
+
+```
+Firmware download requested
+Authorization granted
+Downloading: [+++|                                              ] 6 %
+```
+
+ダウンロードが終了し、中身の検証が完了すると、 IoT デバイスが自動的に再起動します。
 
 ## ファームウェアがアップデートされたことを確認する＊
 
