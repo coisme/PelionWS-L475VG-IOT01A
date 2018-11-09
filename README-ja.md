@@ -490,7 +490,25 @@ Image: ./BUILD/DISCO_L475VG_IOT01A/GCC_ARM/WS_ET-IoT-Expo-2018.bin
 
 ### ENABLE_SENSORSマクロを有効化する
 
-本ワークショップでは新たにコードを書く時間を節約するため、プリプロセッサによるコンパイルスイッチでセンサのコードを有効化できるようにしてあります。センサを有効化するにはマクロ `ENABLE_SENSORS` を定義します。マクロを定義するには、
+本ワークショップでは新たにコードを書く時間を節約するため、プリプロセッサによるコンパイルスイッチでセンサのコードを有効化できるようにしてあります。センサを有効化するにはマクロ `ENABLE_SENSORS` を定義します。マクロを定義するには、プロジェクトルートにある `mbed_app.json` を編集します。
+
+`mbed_app.json` の `macros` セクションの最後に、 `ENABLE_SENSORS=1` を追加してください。以下は追加した例です。
+
+```
+{
+    "macros": [
+        "MBEDTLS_USER_CONFIG_FILE=\"mbedTLSConfig_mbedOS.h\"",
+        "PAL_USER_DEFINED_CONFIGURATION=\"sotp_fs_config_MbedOS.h\"",
+        "MBED_CLIENT_USER_CONFIG_FILE=\"mbed_cloud_client_user_config.h\"",
+        "MBED_CLOUD_CLIENT_USER_CONFIG_FILE=\"mbed_cloud_client_user_config.h\"",
+        "PAL_DTLS_PEER_MIN_TIMEOUT=5000",
+        "MBED_CONF_APP_MAIN_STACK_SIZE=5000",
+        "ARM_UC_USE_PAL_BLOCKDEVICE=1",
+        "MBED_CLOUD_CLIENT_UPDATE_STORAGE=ARM_UCP_FLASHIAP_BLOCKDEVICE",
+        "ENABLE_SENSORS=1"
+    ],
+... (以下略) ...
+```
 
 ## アップデート用ファームウェアイメージを作成する
 
