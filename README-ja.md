@@ -423,8 +423,12 @@ $ mbed toolchain GCC_ARM
 つづいて、　IoT デバイスを Pelion Device Management に接続するのに必要なファイルなどを生成します。次のコマンドを入力してくだい。
 
 ```
-$ mbed dm init -d "example.com" --model-name "PELION_DEMO" -q
+$ mbed dm init -d "example.com" --model-name "PELION_DEMO" -q --force
 ```
+
+## Wi-Fi アクセスポイントを設定する
+
+[こちら](#Wi-Fi-アクセスポイントの情報を設定する) を参照してください。
 
 ## プロジェクトをビルドする
 
