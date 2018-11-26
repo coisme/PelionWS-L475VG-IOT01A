@@ -3,7 +3,7 @@
 1. Mbed オンラインコンパイラを利用して IoT デバイスのファームウェアを作成する
 1. Pelion Device Management で IoT デバイスを管理する
 1. IoT デバイスのファームウェアを OTA (Over-The-Air) で更新する
-1. (Pelion Device Management と連携する WEB アプリを作成する)
+1. Pelion Device Management と連携する WEB アプリを作成する
 
 
 # 事前準備
@@ -74,7 +74,7 @@ https://os.mbed.com/platforms/ST-Discovery-L475E-IOT01A/
 
 オンラインコンパイラのワークスペースにプロジェクトをインポートします。Mbed サイトのログインした状態で、次のページの右にある黄色いボタン *Import into Compiler* をクリックしてください。
 
-https://os.mbed.com/users/coisme/code/WS_ET-IoT-Expo-2018/
+https://os.mbed.com/users/coisme/code/Pelion-DM-Workshop-Project/
 
 <img src="img/Import.png" width="800" />
 
@@ -240,13 +240,11 @@ IoT デバイスに登録されているリソース一覧が表示されます�
 
 ## ENABLE_SENSORSマクロを有効化する
 
-本ワークショップでは新たにコードを書く時間を節約するため、プリプロセッサによるコンパイルスイッチでセンサのコードを有効化できるようにしてあります。センサを有効化するにはマクロ `ENABLE_SENSORS` を定義します。マクロを定義するには、画面上部にある *Compile* を展開し、 *Compile Macros* をクリックします。
+本ワークショップでは新たにコードを書く時間を節約するため、プリプロセッサによるコンパイルスイッチでセンサのコードを有効化できるようにしてあります。センサを有効化するにはマクロ `ENABLE_SENSORS` を定義します。
 
-<img src="img/compile_macros.png" width="600" />
+`main.cpp` ファイルの先頭のほうにある `//#define ENABLE_SENSORS` という行を探してください。コメントアウトされています。この状態ではセンサが有効化されていないので、先頭の `//` を削除してマクロ定義を有効化してください。
 
-するとコンパイルマクロを定義するダイアログが表示されます。テキストエリアに `ENABLE_SENSORS` と入力してください。入力したら OK ボタンをクリックして保存します。
-
-<img src="img/input_compile_macro.png" width="400" />
+<img src="img/define_line.png" width="400">
 
 これで `main.cpp` 中の、 `#ifdef ENABLE_SENSORS` と `#endif /* ENABLE_SENSORS */` で囲まれたセンサ関連のコードが有効化されます。
 
@@ -384,6 +382,8 @@ VL53L0X [mm]:               304
 
 # WEBアプリケーションを作る
 
+
+
 ## SDK
 
 ## ...
@@ -428,7 +428,7 @@ $ mbed dm init -d "example.com" --model-name "PELION_DEMO" -q --force
 
 ## Wi-Fi アクセスポイントを設定する
 
-[こちら](#Wi-Fi-アクセスポイントの情報を設定する) を参照してください。
+[Wi-Fi-アクセスポイントの情報を設定する](#Wi-Fi-アクセスポイントの情報を設定する) を参照してください。
 
 ## プロジェクトをビルドする
 
@@ -494,25 +494,14 @@ Image: ./BUILD/DISCO_L475VG_IOT01A/GCC_ARM/WS_ET-IoT-Expo-2018.bin
 
 ### ENABLE_SENSORSマクロを有効化する
 
-本ワークショップでは新たにコードを書く時間を節約するため、プリプロセッサによるコンパイルスイッチでセンサのコードを有効化できるようにしてあります。センサを有効化するにはマクロ `ENABLE_SENSORS` を定義します。マクロを定義するには、プロジェクトルートにある `mbed_app.json` を編集します。
+本ワークショップでは新たにコードを書く時間を節約するため、プリプロセッサによるコンパイルスイッチでセンサのコードを有効化できるようにしてあります。センサを有効化するにはマクロ `ENABLE_SENSORS` を定義します。
 
-`mbed_app.json` の `macros` セクションの最後に、 `ENABLE_SENSORS=1` を追加してください。以下は追加した例です。
+`main.cpp` ファイルの先頭のほうにある `//#define ENABLE_SENSORS` という行を探してください。コメントアウトされています。この状態ではセンサが有効化されていないので、先頭の `//` を削除してマクロ定義を有効化してください。
 
-```
-{
-    "macros": [
-        "MBEDTLS_USER_CONFIG_FILE=\"mbedTLSConfig_mbedOS.h\"",
-        "PAL_USER_DEFINED_CONFIGURATION=\"sotp_fs_config_MbedOS.h\"",
-        "MBED_CLIENT_USER_CONFIG_FILE=\"mbed_cloud_client_user_config.h\"",
-        "MBED_CLOUD_CLIENT_USER_CONFIG_FILE=\"mbed_cloud_client_user_config.h\"",
-        "PAL_DTLS_PEER_MIN_TIMEOUT=5000",
-        "MBED_CONF_APP_MAIN_STACK_SIZE=5000",
-        "ARM_UC_USE_PAL_BLOCKDEVICE=1",
-        "MBED_CLOUD_CLIENT_UPDATE_STORAGE=ARM_UCP_FLASHIAP_BLOCKDEVICE",
-        "ENABLE_SENSORS=1"
-    ],
-... (以下略) ...
-```
+<img src="img/define_line.png" width="400">
+
+これで `main.cpp` 中の、 `#ifdef ENABLE_SENSORS` と `#endif /* ENABLE_SENSORS */` で囲まれたセンサ関連のコードが有効化されます。
+
 
 ## アップデート用ファームウェアイメージを作成する
 
