@@ -3,7 +3,6 @@
 1. Mbed オンラインコンパイラを利用して IoT デバイスのファームウェアを作成する
 1. Pelion Device Management で IoT デバイスを管理する
 1. IoT デバイスのファームウェアを OTA (Over-The-Air) で更新する
-1. Pelion Device Management と連携する WEB アプリを作成する
 
 
 # 事前準備
@@ -380,13 +379,6 @@ VL53L0X [mm]:               304
 
 <img src="img/distance_sensor.gif" width="450" height="450" />
 
-# WEBアプリケーションを作る
-
-
-
-## SDK
-
-## ...
 
 # 付録A. Mbed CLI を用いてファームウェアを OTA でアップデートする
 
