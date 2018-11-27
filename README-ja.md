@@ -390,13 +390,13 @@ OTA でのファームウェアアップデートを Mbed CLI を使って行う
 コマンドラインから以下のコマンドを実行してください。（最初の `$` は入力する必要はありません。以下のコマンド例で同様です。）
 
 ```
-$ mbed import http://os.mbed.com/users/coisme/code/WS_ET-IoT-Expo-2018/
+$ mbed import https://github.com/coisme/Pelion-DM-Workshop-Project
 ```
 
-プロジェクトが `WS_ET-IoT-Expo-2018` というディレクトリ名でインポートされます。プロジェクトのルートディレクトリに移動します。
+プロジェクトが `Pelion-DM-Workshop-Project` というディレクトリ名でインポートされます。プロジェクトのルートディレクトリに移動します。
 
 ```
-$ cd WS_ET-IoT-Expo-2018
+$ cd Pelion-DM-Workshop-Project
 ```
 
 ## API キーの入手
