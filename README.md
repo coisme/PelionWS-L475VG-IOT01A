@@ -16,6 +16,8 @@ In this workshop, we use Mbed online compiler. Please create an account before t
 
 https://os.mbed.com/account/signup/
 
+Please make sure that E-mail verification is done, otherwise you'll fail to get Free Trial in the next step.
+
 ## Request Free Trial of Pelion Device Management
 
 In this workshop, we use Pelion Device Management. Please request free trial of Pelion Device Management from the following page. You need an Mbed account created above to apply your request.

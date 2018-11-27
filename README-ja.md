@@ -18,6 +18,8 @@
 
 https://os.mbed.com/account/signup/
 
+Eメールアドレスの確認まで済ませてください。Eメールアドレスの確認が住んでいないと、次のフリートライアルの申請でエラーが起きます。
+
 
 ## Pelion Device Management のフリートライアルを登録する
 
