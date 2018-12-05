@@ -7,6 +7,10 @@
 
 # 事前準備
 
+## 使用ブラウザ
+
+オンラインコンパイラを使用する関係上、Chrome または Firefox を推奨しています。Edge または Internet Explorer　は一部不具合が生じる場合があります。
+
 ## ターミナルソフトウェアのインストール
 
 本ワークショップではターミナルソフトを使用して IoT デバイスからのメッセージをモニタします。[Teraterm](https://ja.osdn.net/projects/ttssh2/) (Windows)、 [Coolterm](http://freeware.the-meiers.org) (Windows/macOS/Linux) などのターミナルソフトをインストールしてください。
