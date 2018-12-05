@@ -15,6 +15,8 @@
 
 本ワークショップではターミナルソフトを使用して IoT デバイスからのメッセージをモニタします。[Teraterm](https://ja.osdn.net/projects/ttssh2/) (Windows)、 [Coolterm](http://freeware.the-meiers.org) (Windows/macOS/Linux) などのターミナルソフトをインストールしてください。
 
+Windows ではシリアルドライバのインストールが必要になります。以下のサイトからダウンロードしてください。
+https://os.mbed.com/docs/latest/tutorials/windows-serial-driver.html
 
 ## Mbed アカウントを作成する
 
