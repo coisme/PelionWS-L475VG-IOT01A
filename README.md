@@ -10,6 +10,8 @@ In this workshop, you can experience the following things with [B-L475E-IOT01A D
 
 Please use **Chrome** or **Firefox**. **Edge** and **Internet Explorer** may cause problen in this workshop process.
 
+Do not open multiple windows of Pelion Device Management console or online compiler. It may cause an error.
+
 ## Install Terminal Software
 
 In this workshop, we use terminal software for monitoring messages from the IoT device. Please install [Teraterm](https://ja.osdn.net/projects/ttssh2/) (Windows), [Coolterm](http://freeware.the-meiers.org) (Windows/macOS/Linux), or other terminal software.
@@ -89,13 +91,19 @@ Click the *Import into Compiler* button, you'll be moved to the online compiler.
 
 Sets the Wi-Fi access point which IoT device connect to. Open the `mbed_app.json` file in the project root, then edit the items below in the `target_overrides` section.
 
-```
+```JSON
             "nsapi.default-wifi-security"       : "WPA_WPA2",
             "nsapi.default-wifi-ssid"           : "\"SSID\"",
             "nsapi.default-wifi-password"       : "\"Password\""
 ```
 
-`WEP`, `WPA`, `WPA2`, or `WPA_WPA2` can be set for `nsapi.default-wifi-security`. Set an appropriate one correspond to your access point. Set SSID of your access point to `nsapi.default-wifi-ssid`, and set your password to `nsapi.default-wifi-password`. Note that you need to add the escaped quotation mark `\"` at the head and tail of the string in quotation marks.
+`WEP`, `WPA`, `WPA2`, or `WPA_WPA2` can be set for `nsapi.default-wifi-security`. Set an appropriate one correspond to your access point. Set SSID of your access point to `nsapi.default-wifi-ssid`, and set your password to `nsapi.default-wifi-password`. Note that you need to add the escaped quotation mark `\"` at the head and tail of the string in quotation marks. Here's the example when SSID is `ArmMbed` and password is `abc1234`.
+
+```JSON
+            "nsapi.default-wifi-security"       : "WPA_WPA2",
+            "nsapi.default-wifi-ssid"           : "\"ArmMbed\"",
+            "nsapi.default-wifi-password"       : "\"abc1234\""
+```
 
 
 ## Create Developer Certificates

@@ -11,6 +11,8 @@
 
 オンラインコンパイラを使用する関係上、Chrome または Firefox を推奨しています。Edge または Internet Explorer　は一部不具合が生じる場合があります。
 
+また、オンラインコンパイラや Pelion Device Management コンソールを複数同時に開いているとエラーが発生する場合があります。一度に開くウィンドウ（またはタブ）はそれぞれ一つにしてください。
+
 ## ターミナルソフトウェアのインストール
 
 本ワークショップではターミナルソフトを使用して IoT デバイスからのメッセージをモニタします。[Teraterm](https://ja.osdn.net/projects/ttssh2/) (Windows)、 [Coolterm](http://freeware.the-meiers.org) (Windows/macOS/Linux) などのターミナルソフトをインストールしてください。
@@ -45,7 +47,7 @@ https://console.mbed.com/cloud-registration
 
 同意する場合は *I accept this license on behalf of my team* にチェックを入れて、*Accept* ボタンをクリックしてください。
 
-完了したら Device Management Portal のウィンドウは閉じて構いません。
+完了したら Device Management Portal のウィンドウまたはタブは閉じてください。
 
 # ファームウェアを作成する
 
@@ -94,13 +96,20 @@ https://os.mbed.com/users/coisme/code/Pelion-DM-Workshop-Project/
 
 IoT デバイスが接続する Wi-Fi  アクセスポイントの情報を設定します。プロジェクトのルートにあるファイル `mbed_app.json` を開き、`target_overrides` の中にある次の項目を編集してください。
 
-```
+```JSON
             "nsapi.default-wifi-security"       : "WPA_WPA2",
             "nsapi.default-wifi-ssid"           : "\"SSID\"",
             "nsapi.default-wifi-password"       : "\"Password\""
 ```
 
-`nsapi.default-wifi-security` には `WEP` 、 `WPA` 、 `WPA2` 、 `WPA_WPA2` が設定できます。アクセスポイントの設定に応じて適切なものを選択してください。 `nsapi.default-wifi-ssid` にはアクセスポイントの SSID を、 `nsapi.default-wifi-password` にはパスワードを設定してください。その際、文字列の先頭と最後にエスケープされた引用符 `\"` が必要ですのでご注意ください。
+`nsapi.default-wifi-security` には `WEP` 、 `WPA` 、 `WPA2` 、 `WPA_WPA2` が設定できます。アクセスポイントの設定に応じて適切なものを選択してください。 `nsapi.default-wifi-ssid` の値 ( 上記 `"\"SSID\""` ) にはアクセスポイントの SSID を、 `nsapi.default-wifi-password` の値 ( 上記 `"\"Password\""` ) にはパスワードを設定してください。その際、**文字列の先頭と最後にエスケープされた引用符 `\"` が必要**ですのでご注意ください。例として SSID が `ArmMbed` 、パスワードが `abc1234` の場合の設定を挙げておきます。
+
+```JSON
+            "nsapi.default-wifi-security"       : "WPA_WPA2",
+            "nsapi.default-wifi-ssid"           : "\"ArmMbed\"",
+            "nsapi.default-wifi-password"       : "\"abc1234\""
+```
+
 
 
 ## 開発者用証明書を作成する
