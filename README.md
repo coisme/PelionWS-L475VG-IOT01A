@@ -6,9 +6,17 @@ In this workshop, you can experience the following things with [B-L475E-IOT01A D
 
 # Prepare
 
+## Browser
+
+Please use **Chrome** or **Firefox**. **Edge** and **Internet Explorer** may cause problen in this workshop process.
+
 ## Install Terminal Software
 
 In this workshop, we use terminal software for monitoring messages from the IoT device. Please install [Teraterm](https://ja.osdn.net/projects/ttssh2/) (Windows), [Coolterm](http://freeware.the-meiers.org) (Windows/macOS/Linux), or other terminal software.
+
+On Windows, you might need to install this device driver. Please download and install:
+https://www.st.com/content/st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-utilities/stsw-link009.html
+
 
 ## Create Mbed Account
 
