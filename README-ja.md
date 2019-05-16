@@ -26,7 +26,7 @@ https://www.st.com/content/st_com/en/products/development-tools/software-develop
 
 https://os.mbed.com/account/signup/
 
-Eメールアドレスの確認まで済ませてください。Eメールアドレスの確認が住んでいないと、次のフリートライアルの申請でエラーが起きます。
+Eメールアドレスの確認まで済ませてください。Eメールアドレスの確認が済んでいないと、次のフリートライアルの申請でエラーが起きます。
 
 
 ## Pelion Device Management のフリートライアルを登録する
